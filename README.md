@@ -1,38 +1,36 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# What is the goal?
+This is a sample of Torob website and it can track user activities and suggest best offer to have a good purchase.
 
-## Getting Started
+# Features of this app
+- [ ] Using animation to make the environment more attractive
+- [ ] Track user activity
 
-First, run the development server:
+# Technologies 
++ ReactJS
++ NextJS
++ NextAuth
++ MongoDB
++ TailWindCSS
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+# Structure
+In this project we have 4 important Components :
++ Homepage Or Mainpage
++ Vitrin
++ Product
++ Database
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+# How it works?
+* Database:
+It is a simple and local data storage of products.
+* Homepage :
+You can use searhbox for searching objects of Database then after searching you will see Vitrin page of products.
+* Vitrin :
+In this page Algoritms are starting to track your activity for example tracking your clcik and etc.
+* Product :
+In this page must thing that very important and much more visible is simillar products, its show base on category of page product.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+# Link of React App Codes
+https://github.com/rahimtech/torobsmart
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+# Output
+https://rahimtech.github.io
