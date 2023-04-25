@@ -12,6 +12,10 @@
 /.next/
 /out/
 
+#server SIDE
+/src/server/node_modules
+
+
 # production
 /build
 
