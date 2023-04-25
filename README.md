@@ -26,11 +26,9 @@ It is a simple and local data storage of products.
 You can use searhbox for searching objects of Database then after searching you will see Vitrin page of products.
 * Vitrin :
 In this page Algoritms are starting to track your activity for example tracking your clcik and etc.
-* Product :
-In this page must thing that very important and much more visible is simillar products, its show base on category of page product.
+
 
 # Link of React App Codes
 https://github.com/rahimtech/torobsmart
 
-# Output
-https://rahimtech.github.io
+
