@@ -28,7 +28,6 @@ import User from "../../model/UserSchema";
 // });
 
 async function signup(req, res) {
-  console.log("STARTING SIGN UP...");
   await connect();
   console.log("✅Connected");
 
@@ -40,21 +39,17 @@ async function signup(req, res) {
   // res.status(200).json({ name: "John Doe" });
 
   const existingUser = await User.find({ email: req.body.email });
-  console.log("existingUser: ", existingUser);
 
   if (existingUser.length > 0) {
+    res.status(401).send();
   } else {
     const user = await User.create({
       name: req.body.name,
       email: req.body.email,
       password: req.body.pass,
     });
-    console.log("user: ", user);
+    res.status(200).send();
   }
-
-  res.status(200);
-
-  console.log("res: ", res);
 
   return;
   // db.query(

@@ -7,28 +7,51 @@ import { Button, Input, TextField } from "@mui/material";
 import { useFormik } from "formik";
 import { registerValidate } from "../../../lib/validate.js";
 import { useRouter } from "next/router";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const Register = () => {
   const con = useContext(UserContext);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [showProgress, setShowProgress] = useState("hidden");
   const [pass, setPass] = useState("");
   const [serverMessage, setServerMessage] = useState("");
   const [open, setOpen] = useState("");
 
   const signInFunc = async (e) => {
+    setShowProgress("block");
+
     e.preventDefault();
     Axios.post("http://localhost:3000/api/signup", {
       name: name,
       email: email,
       pass: pass,
-    }).then((res) => {
-      return res;
-    });
+    })
+
+      .then((response) => {
+        if (response.status == 200) {
+          setShowProgress("hidden");
+
+          setOpen("200");
+          setServerMessage("با موفقیت ثبت نام شدید :)");
+        }
+      })
+      .catch((err) => {
+        if (err.response) {
+          if (err.response.status == 401) {
+            setShowProgress("hidden");
+            setOpen("400");
+            setServerMessage("کاربری با این ایمیل وجود دارد !!");
+          }
+        } else {
+          setShowProgress("hidden");
+          setOpen("400");
+          setServerMessage("سرور برای ثبت نام متصل نیست");
+        }
+      });
     console.log("End Connection🔚");
   };
 
-  //Every inputs working with FORMIK From now on.
   return (
     <div
       className={`${con.checkReg} bg-with-opacity-login  w-screen h-screen z-10 items-center fixed`}
@@ -57,6 +80,11 @@ const Register = () => {
           <div
             className={`flex justify-center w-52 h-auto rtl flex-col mx-auto my-auto p-5 shadow-md bg-white !z-30 rounded-md`}
           >
+            <CircularProgress
+              color="success"
+              className={`${showProgress} m-auto`}
+            />
+
             <input
               id="standard-basic"
               label="نام کاربری"
