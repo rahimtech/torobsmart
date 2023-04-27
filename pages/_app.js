@@ -5,10 +5,7 @@ import { useState } from "react";
 import Database from "../src/components/Database.js";
 import { SessionProvider } from "next-auth/react";
 
-export default function App({
-  Component,
-  pageProps: { session, ...pageProps },
-}) {
+export default function App({ Component, ...pageProps }) {
   const [handlerDatabase, setHandlerDatabase] = useState(Database);
   const [checkReg, setCheckReg] = useState("hidden");
   const [serip, setSerip] = useState(0);
@@ -40,9 +37,7 @@ export default function App({
           <meta name="viewport" content="width=device-width, initial-scale=1" />
           <link rel="icon" href="/favicon.ico" />
         </Head>
-        <SessionProvider session={session}>
-          <Component {...pageProps} />
-        </SessionProvider>
+        <Component {...pageProps} />
       </UserContext.Provider>
     </>
   );

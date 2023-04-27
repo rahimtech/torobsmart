@@ -5,6 +5,18 @@ import Search from "../src/components/mainpage/Search";
 import UserContext from "../src/components/context/userContext.jsx";
 
 export default function Home() {
+  return <div>{Guest()}</div>;
+}
+
+function handleSignOut() {
+  signOut();
+}
+
+function User() {
+  return <div>سلام دنیا</div>;
+}
+
+function Guest() {
   const con = React.useContext(UserContext);
 
   return (
@@ -107,3 +119,20 @@ export default function Home() {
     </>
   );
 }
+
+// export async function getServerSideProps({ req }) {
+//   const session = await getSession({ req });
+
+//   if (!session) {
+//     return {
+//       redirect: {
+//         destination: "/",
+//         permanent: false,
+//       },
+//     };
+//   }
+
+//   return {
+//     props: { session },
+//   };
+// }
