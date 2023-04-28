@@ -43,6 +43,11 @@ const Register = () => {
             setOpen("400");
             setServerMessage("کاربری با این ایمیل وجود دارد !!");
           }
+          if (err.response.status == 500) {
+            setShowProgress("hidden");
+            setOpen("400");
+            setServerMessage("سرور برای ثبت نام متصل نیست");
+          }
         } else {
           setShowProgress("hidden");
           setOpen("400");
@@ -85,7 +90,7 @@ const Register = () => {
               className={`${showProgress} m-auto`}
             />
 
-            <input
+            <TextField
               id="standard-basic"
               label="نام کاربری"
               variant="standard"
@@ -95,7 +100,7 @@ const Register = () => {
               className="mb-3 rtl"
               onBlur={(e) => setName(e.target.value)}
             />
-            <input
+            <TextField
               id="standard-basic"
               label="ایمیل"
               variant="standard"
@@ -105,7 +110,7 @@ const Register = () => {
               className="my-3 rtl"
               onBlur={(e) => setEmail(e.target.value)}
             />
-            <input
+            <TextField
               id="standard-basic"
               label="رمز"
               variant="standard"
@@ -115,7 +120,7 @@ const Register = () => {
               className="mb-3 rtl"
               onBlur={(e) => setPass(e.target.value)}
             />
-            <input
+            <TextField
               id="standard-basic"
               label="چک رمز"
               variant="standard"
