@@ -16,7 +16,6 @@
 /src/server/node_modules
 
 #Valriables
-/.env
 
 # production
 /build
