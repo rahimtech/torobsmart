@@ -1,7 +1,8 @@
-// import jwt from "jsonwebtoken";
 import connect from "../../database/conn";
 import User from "../../model/UserSchema";
+import jwt from "jsonwebtoken";
 
+const KEY = "ASDFGHJKL";
 async function signup(req, res) {
   await connect();
   console.log("✅Connected");
@@ -16,7 +17,15 @@ async function signup(req, res) {
       email: req.body.email,
       password: req.body.pass,
     });
-    res.status(200).send();
+    const token = jwt.sign(
+      {
+        name: req.body.name,
+        email: req.body.email,
+        password: req.body.pass,
+      },
+      KEY
+    );
+    res.status(200).send(token);
   }
 
   return;

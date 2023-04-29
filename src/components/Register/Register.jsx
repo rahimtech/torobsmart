@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import UserContext from "../context/userContext";
 import CloseIcon from "@mui/icons-material/Close";
 import Axios from "axios";
@@ -8,6 +8,7 @@ import { useFormik } from "formik";
 import { registerValidate } from "../../../lib/validate.js";
 import { useRouter } from "next/router";
 import CircularProgress from "@mui/material/CircularProgress";
+import cookie from "cookie-cutter";
 
 const Register = () => {
   const con = useContext(UserContext);
@@ -29,11 +30,12 @@ const Register = () => {
     })
 
       .then((response) => {
+        console.log("response: ", response);
         if (response.status == 200) {
           setShowProgress("hidden");
-
           setOpen("200");
           setServerMessage("با موفقیت ثبت نام شدید :)");
+          cookie.set("user", response.data);
         }
       })
       .catch((err) => {

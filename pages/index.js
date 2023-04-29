@@ -3,6 +3,7 @@ import Button from "@mui/material/Button";
 import Register from "../src/components/Register/Register";
 import Search from "../src/components/mainpage/Search";
 import UserContext from "../src/components/context/userContext.jsx";
+import cookieCutter from "cookie-cutter";
 
 export default function Home() {
   return <div>{Guest()}</div>;
@@ -17,8 +18,13 @@ function User() {
 }
 
 function Guest() {
+  const [checkCookie, setCheckCookie] = useState("block");
   const con = React.useContext(UserContext);
-
+  // if (c1ookie.get("user")) {
+  //   setCheckCookie("hidden");
+  // } else {
+  //   setCheckCookie("block");
+  // }
   return (
     <>
       <header>
@@ -121,18 +127,22 @@ function Guest() {
 }
 
 // export async function getServerSideProps({ req }) {
-//   const session = await getSession({ req });
+//   console.log("req: ", req);
+//   const session = true;
 
 //   if (!session) {
 //     return {
 //       redirect: {
-//         destination: "/",
+//         destination: "/HHH",
 //         permanent: false,
 //       },
 //     };
 //   }
 
 //   return {
-//     props: { session },
+//     redirect: {
+//       destination: "/",
+//       permanent: false,
+//     },
 //   };
 // }
