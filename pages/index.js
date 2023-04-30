@@ -1,31 +1,43 @@
-import React, { useState } from "react";
+import { useState, useContext } from "react";
 import Button from "@mui/material/Button";
 import Register from "../src/components/Register/Register";
 import Search from "../src/components/mainpage/Search";
 import UserContext from "../src/components/context/userContext.jsx";
-import { getCookie, deleteCookie } from "cookies-next";
-import { get, set } from "cookie-cutter";
 import axios, { Axios } from "axios";
+import Cookie from "js-cookie";
+import { useCookies } from "react-cookie";
+import { cookies } from "next/headers";
+import { useRouter } from "next/router";
 
-export default function Home() {
-  const con = React.useContext(UserContext);
+export default function Home({ token }) {
+  const con = useContext(UserContext);
+  const router = useRouter();
 
-  // const [c, setC] = useState(con.cookies.user);
+  function checkLogin() {
+    if (con.cookie) {
+      //user Signin
+      console.log("user Signin");
+      return true;
+    } else {
+      //User Not-Signin
+      console.log("User Not-Signin: ");
+      return false;
+    }
+  }
+
+  // const [cookie, setCookie] = useState(token.token);
+
   const Logout = () => {
     axios.post("/api/logout", {});
-    con.setCookie("undefined");
-    console.log("con: ", con.cookies);
+    con.setCookie("");
   };
+
   return (
     <>
       <header>
         <Register checkReg={con.checkReg} />
-
         <div className="bg-gray-50  w-100 flex justify-between px-10 py-2 ">
-          <div
-            id="left"
-            className={`${con.cookies != undefined ? `hidden` : `block`}`}
-          >
+          <div id="left" className={`${checkLogin() ? `hidden` : `block`}`}>
             <Button
               className="!text-gray-500 !border-gray-300"
               variant="outlined"
@@ -35,15 +47,12 @@ export default function Home() {
               ثبت‌نام / ورود
             </Button>
           </div>
-          <div
-            id="left"
-            className={`${con.cookies != undefined ? `block` : `hidden`}`}
-          >
+          <div id="left" className={`${checkLogin() ? `block` : `hidden`}`}>
             <Button
               className="!text-gray-500 !border-gray-300"
               variant="outlined"
               size="small"
-              onClick={() => Logout}
+              onClick={() => Logout()}
             >
               خروج{" "}
             </Button>
@@ -131,4 +140,8 @@ export default function Home() {
       </footer>
     </>
   );
+}
+
+export function getServerSideProps({ req, res }) {
+  return { props: { token: req.cookies.token || "" } };
 }

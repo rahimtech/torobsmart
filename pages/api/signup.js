@@ -3,7 +3,7 @@ import User from "../../model/UserSchema";
 import jwt from "jsonwebtoken";
 import cookie from "cookie";
 
-const KEY = "ASDFGHJKL";
+const KEY = "QXYA-XYZP-XYIQ-ZVOT";
 
 async function signup(req, res) {
   await connect();
