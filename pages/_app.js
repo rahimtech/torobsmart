@@ -4,6 +4,7 @@ import UserContext from "../src/components/context/userContext";
 import { useState } from "react";
 import Database from "../src/components/Database.js";
 import { SessionProvider } from "next-auth/react";
+import { useCookies, CookiesProvider } from "react-cookie";
 
 export default function App({ Component, ...pageProps }) {
   const [handlerDatabase, setHandlerDatabase] = useState(Database);
@@ -12,6 +13,7 @@ export default function App({ Component, ...pageProps }) {
   const [name, setNamep] = useState("");
   const [numberIdProduct, setNumberIdProduct] = useState(0);
   const [flag, setFlag] = useState([]);
+  const [cookies, setCookie] = useState();
 
   return (
     <>
@@ -29,6 +31,8 @@ export default function App({ Component, ...pageProps }) {
           setNamep,
           flag,
           setFlag,
+          cookies,
+          setCookie,
         }}
       >
         <Head>

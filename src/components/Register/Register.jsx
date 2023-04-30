@@ -8,7 +8,7 @@ import { useFormik } from "formik";
 import { registerValidate } from "../../../lib/validate.js";
 import { useRouter } from "next/router";
 import CircularProgress from "@mui/material/CircularProgress";
-import cookie from "cookie-cutter";
+// import cookie from "cookie-cutter";
 
 const Register = () => {
   const con = useContext(UserContext);
@@ -35,7 +35,7 @@ const Register = () => {
           setShowProgress("hidden");
           setOpen("200");
           setServerMessage("با موفقیت ثبت نام شدید :)");
-          cookie.set("user", response.data);
+          con.setCookie(response.data);
         }
       })
       .catch((err) => {

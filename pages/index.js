@@ -3,35 +3,29 @@ import Button from "@mui/material/Button";
 import Register from "../src/components/Register/Register";
 import Search from "../src/components/mainpage/Search";
 import UserContext from "../src/components/context/userContext.jsx";
-import cookieCutter from "cookie-cutter";
+import { getCookie, deleteCookie } from "cookies-next";
+import { get, set } from "cookie-cutter";
+import axios, { Axios } from "axios";
 
 export default function Home() {
-  return <div>{Guest()}</div>;
-}
-
-function handleSignOut() {
-  signOut();
-}
-
-function User() {
-  return <div>سلام دنیا</div>;
-}
-
-function Guest() {
-  const [checkCookie, setCheckCookie] = useState("block");
   const con = React.useContext(UserContext);
-  // if (c1ookie.get("user")) {
-  //   setCheckCookie("hidden");
-  // } else {
-  //   setCheckCookie("block");
-  // }
+
+  // const [c, setC] = useState(con.cookies.user);
+  const Logout = () => {
+    axios.post("/api/logout", {});
+    con.setCookie("undefined");
+    console.log("con: ", con.cookies);
+  };
   return (
     <>
       <header>
         <Register checkReg={con.checkReg} />
 
         <div className="bg-gray-50  w-100 flex justify-between px-10 py-2 ">
-          <div id="left">
+          <div
+            id="left"
+            className={`${con.cookies != undefined ? `hidden` : `block`}`}
+          >
             <Button
               className="!text-gray-500 !border-gray-300"
               variant="outlined"
@@ -39,6 +33,19 @@ function Guest() {
               onClick={() => con.setCheckReg("block")}
             >
               ثبت‌نام / ورود
+            </Button>
+          </div>
+          <div
+            id="left"
+            className={`${con.cookies != undefined ? `block` : `hidden`}`}
+          >
+            <Button
+              className="!text-gray-500 !border-gray-300"
+              variant="outlined"
+              size="small"
+              onClick={() => Logout}
+            >
+              خروج{" "}
             </Button>
           </div>
           <div id="right">
@@ -125,24 +132,3 @@ function Guest() {
     </>
   );
 }
-
-// export async function getServerSideProps({ req }) {
-//   console.log("req: ", req);
-//   const session = true;
-
-//   if (!session) {
-//     return {
-//       redirect: {
-//         destination: "/HHH",
-//         permanent: false,
-//       },
-//     };
-//   }
-
-//   return {
-//     redirect: {
-//       destination: "/",
-//       permanent: false,
-//     },
-//   };
-// }
