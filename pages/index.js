@@ -1,31 +1,37 @@
-import { useState, useContext } from "react";
+import { useContext } from "react";
 import Button from "@mui/material/Button";
 import Register from "../src/components/Register/Register";
 import Search from "../src/components/mainpage/Search";
 import UserContext from "../src/components/context/userContext.jsx";
-import axios, { Axios } from "axios";
-import Cookie from "js-cookie";
-import { useCookies } from "react-cookie";
-import { cookies } from "next/headers";
-import { useRouter } from "next/router";
+import axios from "axios";
+import { Configuration, OpenAIApi } from "openai";
 
-export default function Home({ token }) {
+export default function Home() {
   const con = useContext(UserContext);
-  const router = useRouter();
 
+  async function getDataGPT() {
+    const configuration = new Configuration({
+      organization: "org-LzIl9aALldV3AUTMYX7GHw9V",
+      apiKey: process.env.OPENAI_API_KEY,
+    });
+    console.log("process.env.OPENAI_API_KEY: ", process.env.OPENAI_API_KEY);
+    console.log("configuration: ", configuration);
+
+    const openai = new OpenAIApi(configuration);
+    console.log("openai: ", openai);
+    // const response = await openai.listEngines();
+  }
+
+  const pi = getDataGPT();
   function checkLogin() {
     if (con.cookie) {
       //user Signin
-      console.log("user Signin");
       return true;
     } else {
       //User Not-Signin
-      console.log("User Not-Signin: ");
       return false;
     }
   }
-
-  // const [cookie, setCookie] = useState(token.token);
 
   const Logout = () => {
     axios.post("/api/logout", {});
@@ -142,6 +148,6 @@ export default function Home({ token }) {
   );
 }
 
-export function getServerSideProps({ req, res }) {
-  return { props: { token: req.cookies.token || "" } };
-}
+// export function getServerSideProps({ req, res }) {
+//   return { props: { token: req.cookies.token || "" } };
+// }
