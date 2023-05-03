@@ -1,6 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 
-function signup(req, res) {
+function signin(req, res) {
   if (!req.body.email || !req.body.pass) {
     res.send("You Have Problem to Register");
     return;
@@ -22,4 +22,4 @@ function signup(req, res) {
   res.status(200).send({ access_token: token });
 }
 
-export default signup;
+export default signin;
