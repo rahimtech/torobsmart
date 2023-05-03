@@ -1,7 +1,7 @@
 import "../styles/globals.css";
 import Head from "next/head";
 import UserContext from "../src/components/context/userContext";
-import { useContext, useEffect, useState } from "react";
+import { useState } from "react";
 import Database from "../src/components/Database.js";
 
 export default function App({ Component, pageProps }) {
@@ -11,6 +11,7 @@ export default function App({ Component, pageProps }) {
   const [name, setNamep] = useState("");
   const [numberIdProduct, setNumberIdProduct] = useState(0);
   const [flag, setFlag] = useState([]);
+  console.log("pageProps.token: ", pageProps);
   const [cookie, setCookie] = useState(pageProps.token);
 
   return (
@@ -44,6 +45,6 @@ export default function App({ Component, pageProps }) {
     </>
   );
 }
-export function getServerSideProps({ req, res }) {
-  return { props: { token: req.cookies.token || "" } };
-}
+// export function getServerSideProps({ req, res }) {
+//   return { pageProps: { token: req.cookies.token || "" } };
+// }

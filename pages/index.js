@@ -1,4 +1,5 @@
 import Header from "../src/components/Header.jsx";
+import Login from "../src/components/Register/Login.jsx";
 import Footer from "../src/components/Footer.jsx";
 import Search from "../src/components/mainpage/Search";
 import { Configuration, OpenAIApi } from "openai";
@@ -22,6 +23,7 @@ export default function Home() {
   return (
     <>
       <Header />
+      <Login />
       <section
         style={{ minHeight: "85vh" }}
         className="flex justify-center items-center"
@@ -36,6 +38,6 @@ export default function Home() {
   );
 }
 
-// export function getServerSideProps({ req, res }) {
-//   return { props: { token: req.cookies.token || "" } };
-// }
+export function getServerSideProps({ req, res }) {
+  return { props: { token: req.cookies.token || "" } };
+}

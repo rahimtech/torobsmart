@@ -1,25 +1,49 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
+import connect from "../../database/conn";
+import User from "../../model/UserSchema";
+import jwt from "jsonwebtoken";
+import cookie from "cookie";
 
-function signin(req, res) {
-  if (!req.body.email || !req.body.pass) {
-    res.send("You Have Problem to Register");
-    return;
-  }
-  const user = users.find((u) => {
-    return u.email == req.body.email && u.pass == req.body.pass;
-  });
-  if (!user) {
-    res.send("User Not Found !");
-  }
-  const token = jwt.sign(
-    {
-      sub: user.id,
-      username: user.email,
-    },
-    "mysupersecretkey",
-    { expiresIn: "3 hours" }
-  );
-  res.status(200).send({ access_token: token });
+const KEY = "QXYA-XYZP-XYIQ-ZVOT";
+
+async function signup(req, res) {
+  await connect();
+  console.log("✅Connected");
+
+  User.findOne({ email: req.body.email })
+    .then((user) => {
+      // user found
+      if (user.password === req.body.password) {
+        const token = jwt.sign(
+          {
+            name: user.name,
+            email: user.email,
+            password: user.password,
+          },
+          KEY
+        );
+        res.setHeader(
+          "Set-Cookie",
+          cookie.serialize("token", token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV !== "development",
+            maxAge: 60 * 60 * 12,
+            sameSite: "strict",
+            path: "/",
+          })
+        );
+        res.status(200).send(token);
+      } else {
+        // user not found
+
+        res.status(401).send();
+      }
+    })
+    .catch((err) => {
+      // Server Not Connect
+      res.status(500).send();
+    });
+
+  return;
 }
 
-export default signin;
+export default signup;
